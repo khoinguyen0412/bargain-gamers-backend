@@ -114,7 +114,11 @@ class AuthController extends Controller
             return responseData(config('apiconst.INVALID_TOKEN_CODE'),"Invalid token",['authenticated' => 'false']);
         }
 
-        return responseData(config('apiconst.API_OK'),"Valid token",['authenticated' => 'true']);
+        else{
+            $username = User::find($accessToken->tokenable->id)->username;
+            return responseData(config('apiconst.API_OK'),"Valid token",['authenticated' => 'true', 'username' => $username]);
+        }
+
 
     }
 
